@@ -60,7 +60,17 @@
       <section class="hero">
         <div class="container">
           <h1 class="hero-title">Эффективные решения для вашего бизнеса</h1>
-          <button type="button" class="hero-button">Заказать услугу</button>
+          <button type="button" class="hero-button" data-modal-open>Заказать услугу</button>
+
+          <div class="backdrop is-hidden" data-modal>
+            <div class="modal">
+              <p>
+                window
+              </p>
+              <button data-modal-close>close</button>
+            </div>
+          </div>
+
         </div>
       </section>
       <!--ABOUT-->
@@ -84,7 +94,7 @@
             <li class="about-item">
               <div class="about-item-svg">
                 <svg class="about-icon" width="70" height="70">
-                  <use href="./images/icons.svg#icon-diagram"></use>
+                  <use href="./images/icons.svg#icon-clock"></use>
                 </svg>
               </div>
               <h3 class="about-list-title">Пунктуальность</h3>
@@ -96,7 +106,7 @@
             <li class="about-item">
               <div class="about-item-svg">
                 <svg class="about-icon" width="70" height="70">
-                  <use href="./images/icons.svg#icon-clock"></use>
+                  <use href="./images/icons.svg#icon-diagram"></use>
                 </svg>
               </div>
 
@@ -458,5 +468,6 @@
         </ul>
       </div>
     </footer>
+    <script src="./js/modal.js"></script>
   </body>
 </html>
