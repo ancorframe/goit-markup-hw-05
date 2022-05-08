@@ -16,9 +16,13 @@
   --hero-btn-color: #ffffff;
   --hero-btn-bkgd-color: #2196f3;
   --hero-title-color: #ffffff;
+  --backdrop-bkgd-color: rgba(0, 0, 0, 0.2);
+  --modal-bkgd-color: #ffffff;
   --main-title-color: #212121;
   --main-bottom-text-color: #757575;
   --about-item-svg-color: #f5f4fa;
+  --service-bkgd-color: rgba(47, 48, 58, 0.8);
+  --service-text-color: #ffffff;
   --team-bkgd-color: #f5f4fa;
   --team-itemb-bkgd-color: #ffffff;
   --soc-link-color-fist: #afb1b8;
@@ -36,6 +40,8 @@
   --portf-border-color: #eeeeee;
   --portf-select-bth-color: #2196f3;
   --portf-select-bth-text: #ffffff;
+  --portf-overlay-bkgd-color: rgba(33, 150, 243, 0.9);
+  --portf-overlay-text: #ffffff;
 }
 
 body {
@@ -86,9 +92,8 @@ img {
 /* ------------------HEADER------------------ */
 
 .header {
-  /* padding-top: 24px;
-  padding-bottom: 25px; */
   border-bottom-style: solid;
+  border-width: 1px;
   border-color: var(--header-border-color);
 }
 
@@ -126,6 +131,10 @@ img {
   padding-top: 32px;
   padding-bottom: 32px;
   display: block;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-link-studio {
@@ -141,20 +150,12 @@ img {
 
 .header-link-studio::after {
   position: absolute;
-  margin-top: 28px;
+  left: 0;
+  bottom: 0;
   content: "";
   width: 48px;
   height: 4px;
   border-radius: 2px;
-}
-
-.header-link-studio::after {
-  display: none;
-  background-color: #2196f3;
-}
-
-.header-link-studio:hover::after {
-  display: block;
 }
 
 .header-item:not(:last-child) {
@@ -169,6 +170,22 @@ img {
   padding-top: 32px;
   padding-bottom: 32px;
   display: block;
+  position: relative;
+}
+
+.header-link-portf::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  width: 78px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.header-link-studio::after,
+.header-link-portf::after {
+  background-color: var(--header-sec-link-color);
 }
 
 .header-list-contact {
@@ -181,6 +198,10 @@ img {
   display: block;
   margin: auto;
   margin-right: 10px;
+
+  transition-property: fill;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-item-contact:not(:last-child) {
@@ -196,6 +217,10 @@ img {
   padding-top: 32px;
   padding-bottom: 32px;
   display: flex;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-link:hover,
@@ -213,6 +238,7 @@ img {
 /* ------------------HERO------------------ */
 
 .hero {
+  position: relative;
   background-color: var(--hero-bkgd-color);
   padding-top: 200px;
   padding-bottom: 200px;
@@ -262,21 +288,55 @@ img {
 
 .backdrop {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--backdrop-bkgd-color);
+
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translateX(-50%) scale(0);
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   width: 528px;
   height: 581px;
-  top: 141px;
-  left: 512px;
-  opacity: 1;
-  background-color: #ffffff;
+  background: var(--modal-bkgd-color);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
-.backdrop.is-hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  cursor: pointer;
 }
+
 /* ------------------ABOUT------------------ */
 .about {
   padding-top: 94px;
@@ -334,6 +394,7 @@ img {
 }
 
 .services-item {
+  position: relative;
   width: calc(100% / 3 - 30px);
   margin-left: 30px;
 }
@@ -352,6 +413,29 @@ img {
   margin: 0;
 }
 
+.service-descrip {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  bottom: 0;
+  left: 0;
+  background: var(--service-bkgd-color);
+}
+
+.service-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--service-text-color);
+}
 /* ------------------TEAM------------------ */
 
 .team {
@@ -427,6 +511,10 @@ img {
   justify-content: center;
   align-items: center;
   fill: var(--soc-link-color-fist);
+
+  transition-property: background-color, fill;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .team-soc-link:hover,
@@ -434,14 +522,6 @@ img {
   background-color: var(--soc-link-color-sec);
   fill: var(--soc-link-color-third);
 }
-
-/* .team-soc-icon {
-  fill: #afb1b8;
-} */
-
-/* .team-soc-link:hover .team-soc-icon {
-  fill: #ffffff;
-} */
 
 /* ------------------CLIENTS------------------ */
 
@@ -470,7 +550,6 @@ img {
 }
 
 .clients-link {
-  /* max-width: 106px; */
   fill: var(--soc-link-color-fist);
   display: block;
   border: 1px solid #afb1b8;
@@ -481,6 +560,10 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  transition-property: border-color, fill;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .clients-link:hover,
@@ -545,6 +628,10 @@ img {
   line-height: 1.71;
   letter-spacing: 0.03em;
   color: var(--footer-address-color);
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-mail {
@@ -552,6 +639,10 @@ img {
   line-height: 1.71;
   letter-spacing: 0.03em;
   color: var(--footer-mail-tel-color);
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-tel {
@@ -559,6 +650,10 @@ img {
   line-height: 1.71;
   letter-spacing: 0.03em;
   color: var(--footer-mail-tel-color);
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-address:hover,
@@ -588,6 +683,10 @@ img {
   align-items: center;
   fill: var(--soc-link-color-third);
   background-color: var(--soc-link-color-four);
+
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-soc-link:hover,
@@ -624,9 +723,13 @@ img {
   color: var(--portf-btn-color);
   border: 0;
   border-radius: 4px;
-
   padding: 6px 22px;
+
+  transition-property: color, background-color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .selected {
   background-color: var(--portf-select-bth-color);
   color: var(--portf-select-bth-text);
@@ -653,6 +756,11 @@ img {
   width: calc(100% / 3 - 30px);
   margin-left: 30px;
   margin-bottom: 30px;
+  cursor: pointer;
+
+  transition-property: box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .portf-border {
@@ -669,8 +777,6 @@ img {
   letter-spacing: 0.06em;
   color: var(--main-title-color);
   margin-bottom: 4px;
-  /* margin-left: 24px;
-  margin-top: 20px; */
 }
 
 .portfolio-buttom-text {
@@ -678,12 +784,43 @@ img {
   line-height: 1.87;
   letter-spacing: 0.03em;
   color: var(--main-bottom-text-color);
-  /* margin-bottom: 20px;
-  margin-left: 24px; */
 }
 
-.portfolio-item:hover,
-.portfolio-item:focus {
+.portf-link:hover,
+.portf-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.portfolio-img {
+  position: relative;
+  overflow: hidden;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  background-color: var(--portf-overlay-bkgd-color);
+
+  transition-property: transform;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overlay-text {
+  padding: 63px 24px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: var(--portf-overlay-text);
+}
+
+.portfolio-item:hover .overlay {
+  transform: translateY(0);
 }
