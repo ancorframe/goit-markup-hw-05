@@ -526,8 +526,8 @@ img {
 /* ------------------CLIENTS------------------ */
 
 .clients {
-  margin-top: 94px;
-  margin-bottom: 94px;
+  padding-top: 94px;
+  padding-bottom: 94px;
 }
 
 .clients-title {
@@ -757,7 +757,10 @@ img {
   margin-left: 30px;
   margin-bottom: 30px;
   cursor: pointer;
+}
 
+.portf-link {
+  display: block;
   transition-property: box-shadow;
   transition-duration: 250ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -821,6 +824,6 @@ img {
   color: var(--portf-overlay-text);
 }
 
-.portfolio-item:hover .overlay {
+.portf-link:hover .overlay {
   transform: translateY(0);
 }
